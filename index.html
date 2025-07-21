@@ -1,11 +1,70 @@
 <!DOCTYPE html>
 <html lang="ko">
 <head>
+  <link rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/pannellum@2.5.6/build/pannellum.css">
+<script src="https://cdn.jsdelivr.net/npm/pannellum@2.5.6/build/pannellum.js"></script>
   <meta charset="utf-8">
   <title>Kyritantan</title>
 </head>
 <body>
   <h1 style="text-align:center">Goodbye! kyritantan</h1>
   <p style="text-align:center">키리탄탄 우리의 시간들</p>
+</body>
+</html>
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8">
+  <title>Kyrgyzstan 2024</title>
+  <link rel="stylesheet"
+        href="https://cdn.jsdelivr.net/npm/pannellum@2.5.6/build/pannellum.css">
+  <style>
+    body{margin:0;font-family:sans-serif;background:#111;color:#eee}
+    header{padding:1rem;text-align:center}
+    #pano{width:100vw;height:80vh;}
+    .panel{padding:1rem;text-align:center}
+    input[type=range]{width:200px}
+  </style>
+</head>
+<body>
+  <header><h1>We're still in Kyrgyzstan</h1></header>
+
+  <!-- 360° 뷰어 -->
+  <div id="pano"></div>
+
+  <!-- 회전 속도 조절 -->
+  <section class="panel">
+    <label>Rotation Speed: <span id="spd">1</span></label><br>
+    <input id="speed" type="range" min="-10" max="10" step="0.5" value="1">
+  </section>
+
+  <!-- 사진 크레딧 -->
+  <footer style="text-align:center;font-size:0.8rem;opacity:.7">
+    © gonayoung · instagram.com/9ooraphic
+  </footer>
+
+  <script src="https://cdn.jsdelivr.net/npm/pannellum@2.5.6/build/pannellum.js"></script>
+  <script>
+  // 1) 기본 파노라마 한 장 로드
+  const viewer = pannellum.viewer('pano',{
+    type       : 'equirectangular',
+    panorama   : 'img/lake.jpg',   // 실제 파일 경로
+    autoLoad   : true,             // 처음부터 로드
+    autoRotate : 1,                // 기본 회전 속도
+    compass    : false,
+    showZoomCtrl:true
+  });
+
+  // 2) 속도 슬라이더와 연동
+  const slider = document.getElementById('speed');
+  const label  = document.getElementById('spd');
+  slider.addEventListener('input', () => {
+    const v = parseFloat(slider.value);
+    label.textContent = v;
+    viewer.stopAutoRotate();
+    if (v !== 0) viewer.startAutoRotate(v);
+  });
+  </script>
 </body>
 </html>
